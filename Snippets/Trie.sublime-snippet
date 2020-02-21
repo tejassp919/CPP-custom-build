@@ -1,0 +1,56 @@
+<snippet>
+	<content><![CDATA[
+
+struct TrieNode
+{
+	struct TrieNode *child[2];
+	int mi;
+	TrieNode()
+	{
+		child[0] = NULL;
+		child[1] = NULL;
+		mi=mod;
+	}
+};
+
+void insert(struct TrieNode *root, int u)
+{
+	string key=bitset<20>(u).to_string();
+	TrieNode *pcrawl=root;
+	pcrawl->mi=min(pcrawl->mi,u);
+	for (int i = 0; i < key.length(); i++) {
+		int ind = key[i] - '0';
+		if (pcrawl->child[ind]==NULL)
+			pcrawl->child[ind] = new TrieNode;
+		pcrawl = pcrawl->child[ind];
+		pcrawl->mi=min(pcrawl->mi,u);
+	}
+}
+
+int search(struct TrieNode *root, int x, int s)
+{
+	struct TrieNode *pcrawl = root;
+	int ans=0, ind;
+	if(pcrawl->mi>s) return -1;
+	string key=bitset<20>(x).to_string();
+	for (int i = 0; i < key.length(); i++)
+	{
+		ans*=2;
+		ind=1-((int)key[i]-'0');
+		if(pcrawl->child[ind]!=NULL&&pcrawl->child[ind]->mi<=s)
+			pcrawl = pcrawl->child[ind];
+		else {
+			ind=1-ind;
+			pcrawl = pcrawl->child[ind];
+		}
+		ans+=ind;
+	}
+	return ans;	
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>trie</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

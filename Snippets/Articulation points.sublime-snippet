@@ -1,0 +1,47 @@
+<snippet>
+	<content><![CDATA[
+
+int counter, droot, rootchild;
+vi dnum, dlow, dpar;
+
+void dfs(int v, vvi &adj, vector<bool> &artvert)
+{
+    dlow[v] = dnum[v] = counter++;
+    forr(x,adj[v])
+    {
+        if (dnum[x] == -1)
+        {
+            dpar[x] = v;
+            if (v == droot) rootchild++;
+            dfs(x,adj,artvert);
+            if (dlow[x] >= dnum[v]) artvert[v] = 1;
+//if(dlow[x]>dnum[u]) THIS EDGE IS BRIDGE;
+            dlow[v] = min(dlow[v], dlow[x]);
+        }
+        else if (x != dpar[v])
+            dlow[v] = min(dlow[v], dnum[x]);
+    }
+}
+
+vector<bool> artpoint(int num, vvi &adj)
+{
+    int n=adj.size();
+    counter=0;
+    dnum=vi(n,-1); dlow=vi(n,-1); dpar=vi(n,0);
+    vector<bool> artvert(n,0);
+    fol(i,1,num+1)
+    {
+        if(dnum[i]!=-1) continue;
+        droot=i; rootchild=0;
+        dfs(i,adj,artvert);
+        artvert[i]= (rootchild>1);
+    }
+    return artvert;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>articualtion points</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

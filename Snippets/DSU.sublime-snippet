@@ -1,0 +1,26 @@
+<snippet>
+	<content><![CDATA[
+
+struct DSU
+{
+    vi p, siz;
+    DSU(int N) {
+        N+=5; siz.assign(N, 1); p.assign(N, 0);
+        fol(i,0,N) p[i] = i;
+    }
+    int findset(int i) { return (p[i]==i) ? i : (p[i]=findset(p[i])); }
+    void unite(int x, int y) {
+        x=findset(x); y=findset(y);
+        if (x!=y) {
+            if(siz[x]<siz[y]) swap(x,y);
+            p[y]=x; siz[x]+=siz[y];
+        }
+    }
+};
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>DSU</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

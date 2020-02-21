@@ -1,0 +1,42 @@
+<snippet>
+	<content><![CDATA[
+
+vvi operator*(vvi &m1, vvi &m2)
+{
+    int n=sz(m1), m=sz(m2), k= sz(m2[0]), temp;
+    vvi res(n,vi(k,0));
+    if(sz(m1[0])!=m) return res;
+    fol(row,0,n)
+    {
+        fol(col,0,k)
+        {
+            fol(i,0,m)
+            {
+                temp=(1LL*m1[row][i]*m2[i][col])%mod;
+                res[row][col]=(res[row][col]+temp)%mod;
+            }
+        }
+    }
+    return res;
+}
+
+vvi matpow(vvi mat, lli b)
+{
+    int n=sz(mat);
+    vvi res(n, vi(n,0));
+    fol(i,0,n) res[i][i]=1;
+    while(b)
+    {
+        if(b&1) res=res*mat;
+        mat=mat*mat;
+        b/=2;
+    }
+    return res;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>matrix exponentiation</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

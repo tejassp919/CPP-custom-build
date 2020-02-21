@@ -1,0 +1,44 @@
+<snippet>
+	<content><![CDATA[
+
+void fft(vector<cd> &a) {
+    int n = a.size();
+    if (n == 1) return;
+    vector<cd> a0(n / 2), a1(n / 2);
+    for (int i = 0; i < n/2; i++)
+    {
+        a0[i] = a[2*i];
+        a1[i] = a[2*i+1];
+    }
+    fft(a0);    fft(a1);
+    long double ang = 2 * PI / n;
+    cd w(1), wn(cos(ang), sin(ang));
+    for (int i = 0; i < n/2 ; i++)
+    {
+        a[i] = a0[i] + w * a1[i];
+        a[i + n/2] = a0[i] - w * a1[i];
+        w *= wn;
+    }
+}
+
+vector<lli> multiply(vector<lli> &a, vector<lli> &b)
+{
+    vector<cd> fa(all(a)), fb(all(b));
+    vector<lli> result;
+    int n = 1, m = sz(a)+sz(b)-1;;
+    while (n < (sz(a) + sz(b))) n <<= 1;
+    fa.resize(n);   fb.resize(n);   result.resize(n);
+    fft(fa);    fft(fb);
+    fol(i,0,n) fa[i]=conj(fa[i]*fb[i]);
+    fft(fa);
+    fol(i,0,n) result[i] = round((fa[i].real()/n));
+    result.resize(m);
+    return result;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>FFT</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

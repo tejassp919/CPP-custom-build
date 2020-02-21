@@ -1,0 +1,45 @@
+<snippet>
+	<content><![CDATA[
+
+//Use addmax and querymax for max type implementation
+//Use addmin and querymin for min type implementation
+
+struct Line {
+	lli m, c, p;
+	bool operator<(const Line& o) const { return m < o.m; }
+	bool operator<(lli x) const { return p < x; }
+};
+
+struct LineContainer : multiset<Line, less<>> {//less
+	// (for doubles, use linf = 1/.0, div(a,b) = a/b)
+	lli linf = INF;
+	lli div(lli a, lli b) { // floored division
+		return a / b - ((a ^ b) < 0 && a % b); }
+	bool isect(iterator x, iterator y) {
+		if (y == end()) { x->p = linf; return false; }
+		if (x->m == y->m) x->p = x->c > y->c ? linf : -linf;
+		else x->p = div(y->c - x->c, x->m - y->m);
+		return x->p >= y->p;
+	}
+	void addmax(lli m, lli c) {
+		auto z = insert({m, c, 0}), y = z++, x = y;
+		while (isect(y, z)) z = erase(z);
+		if (x != begin() && isect(--x, y)) isect(x, y = erase(y));
+		while ((y = x) != begin() && (--x)->p >= y->p)
+			isect(x, erase(y));
+	}
+	lli querymax(lli x) {
+		if(empty()) return linf;
+		auto l = *lower_bound(x);
+		return l.m * x + l.c;
+	}
+	void addmin(lli m, lli c) { addmax(-m,-c); }
+	lli querymin(lli x) { return -querymax(x); }
+};
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>convex hull optization</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

@@ -1,0 +1,48 @@
+<snippet>
+	<content><![CDATA[
+
+int counter;
+vi dnum, dlow;
+vvi SCC;
+deque<int> sta;
+
+void tarjanSCC(int v, vvi &adj, vector<bool> &vis)
+{
+    dlow[v] = dnum[v] = counter++;
+    vis[v]=1;
+    sta.pb(v);
+    forr(x,adj[v])
+    {
+        if (dnum[x] == -1) tarjanSCC(x,adj,vis);
+        if (vis[x]) dlow[v] = min(dlow[v], dlow[x]);
+    }
+    if(dlow[v]==dnum[v])
+    {
+        vi scc;
+        while(sta.back()!=v)
+        {
+            scc.pb(sta.back());
+            vis[sta.back()]=0;
+            sta.ppb;
+        }
+        scc.pb(sta.back()); sta.ppb;
+        vis[v]=0;
+        SCC.pb(scc);
+    }
+}
+
+void storeSCC(int num, vvi &adj)
+{
+    int n=adj.size();
+    counter=0;
+    dnum=vi(n,-1); dlow=vi(n,-1);
+    vector<bool> vis(n,0);
+    fol(i,1,num+1) if(dnum[i]==-1) tarjanSCC(i,adj,vis);
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>tarjanscc</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

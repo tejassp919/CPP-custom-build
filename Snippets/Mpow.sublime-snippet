@@ -1,0 +1,19 @@
+<snippet>
+	<content><![CDATA[
+
+inline lli mpow(lli a, lli b, lli m=mod) {
+    lli ans = 1;
+    // a=((a%mod)+mod)%mod; b=((b%mod)+mod)%mod;
+    while (b) {
+        if (b&1) ans=(ans*a)%m;
+        a=(a*a)%m; b/=2;
+    }
+    return ans;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>mpow</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

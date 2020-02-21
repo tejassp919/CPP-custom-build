@@ -1,0 +1,68 @@
+<snippet>
+	<content><![CDATA[
+
+struct suffix
+{
+    int index;
+    int rank[2];
+};
+
+int cmp(suffix &a, suffix &b)
+{
+    return (a.rank[0] == b.rank[0])? (a.rank[1] < b.rank[1] ?1: 0):
+               (a.rank[0] < b.rank[0] ?1: 0);
+}
+
+void buildsuff(string &txt, int n, int suffarray[])
+{
+    suffix suff[n];
+    int ind[n];
+
+    fol(i,0,n)
+    {
+        suff[i].index = i;
+        suff[i].rank[0] = txt[i] - 'a';
+        suff[i].rank[1] = ((i+1) < n)? (txt[i + 1] - 'a'): -1;
+    }
+    sort(suff, suff+n, cmp);
+
+    for (int k = 4; k < 2*n; k = k*2)
+    {
+        int rank = 0;
+        int prev_rank = suff[0].rank[0];
+        suff[0].rank[0] = rank;
+        ind[suff[0].index] = 0;
+
+        fol(i,1,n)
+        {
+            if (suff[i].rank[0] == prev_rank &&
+                    suff[i].rank[1] == suff[i-1].rank[1])
+            {
+                prev_rank = suff[i].rank[0];
+                suff[i].rank[0] = rank;
+            }
+            else
+            {
+                prev_rank = suff[i].rank[0];
+                suff[i].rank[0] = ++rank;
+            }
+            ind[suff[i].index] = i;
+        }
+
+        fol(i,0,n)
+        {
+            int nind = suff[i].index + k/2;
+            suff[i].rank[1] = (nind < n) ? suff[ind[nind]].rank[0] : -1;
+        }
+        sort(suff, suff+n, cmp);
+    }
+
+    fol(i,0,n)  suffixArr[i] = suff[i].index;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>suffixarray</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

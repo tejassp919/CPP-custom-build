@@ -1,0 +1,61 @@
+<snippet>
+	<content><![CDATA[
+
+vi parent, depth, heavy, head, pos;
+int cur_pos;
+
+int dfs(int v, vvi &adj) {
+    int siz = 1;
+    int max_c_size = 0;
+    for (int c : adj[v]) {
+        if (c != parent[v]) {
+            parent[c] = v; depth[c] = depth[v] + 1;
+            int c_size = dfs(c, adj);
+            siz += c_size;
+            if (c_size > max_c_size)
+                max_c_size = c_size, heavy[v] = c;
+        }
+    }
+    return siz;
+}
+
+int decompose(int v, int h, vvi &adj) {
+    head[v] = h, pos[v] = cur_pos++;
+    if (heavy[v] != -1)
+        decompose(heavy[v], h, adj);
+    for (int c : adj[v]) {
+        if (c != parent[v] && c != heavy[v])
+            decompose(c, c, adj);
+    }
+}
+
+
+void init(vvi &adj) {
+    int n = adj.size();
+    parent = vi(n); depth = vi(n);
+    heavy = vi(n, -1);  head = vi(n);
+    pos = vi(n);
+    cur_pos = 0;
+    dfs(0, adj);
+    decompose(0, 0, adj);
+}
+
+int query(int a, int b) {
+    int res = 0;
+    for (; head[a] != head[b]; b = parent[head[b]]) {
+        if (depth[head[a]] > depth[head[b]])    swap(a, b);
+        int cur = segquery(pos[head[b]], pos[b]);
+        res = max(res, cur);
+    }
+    if (depth[a] > depth[b])    swap(a, b);
+    int last = segquery(pos[a], pos[b]);
+    res = max(res, last);
+    return res;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>HLD</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

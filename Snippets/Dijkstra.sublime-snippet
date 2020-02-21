@@ -1,0 +1,33 @@
+<snippet>
+	<content><![CDATA[
+
+void dijkstra(int s, vi &d, vi &p)
+{
+    d.assign(sz(d),mod);
+    p.assign(sz(p),-1);
+    d[s] = 0;
+    using PII = pair<int, int>;
+    priority_queue<PII, vector<PII>, greater<PII>> q;
+    q.push({0, s});
+    while (!q.empty()) {
+        int v = q.top().second;
+        int d_v = q.top().first;
+        q.pop();
+        if (d_v != d[v])    continue;
+
+        for (auto to : adj[v]) {
+            if (cap[v][to]&&d[v] + cost[v][to] < d[to]) {
+                d[to] = d[v] + cost[v][to];
+                p[to] = v;
+                q.push({d[to], to});
+            }
+        }
+    }
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>dijkstra</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

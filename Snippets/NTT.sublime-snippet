@@ -1,0 +1,60 @@
+<snippet>
+	<content><![CDATA[
+
+const int MOD = 998244353, ROOT = 3;
+vector<int> rev, roots{0, 1};
+void dft(vector<int> &a) {
+    int n = a.size();
+    if (int(rev.size()) != n) {
+        int k = __builtin_ctz(n) - 1;
+        rev.resize(n);
+        fol(i,0,n) rev[i] = rev[i>>1]>>1 | (i&1)<<k;
+    }
+    fol(i,0,n)  if (rev[i] < i) swap(a[i], a[rev[i]]);
+    if (int(roots.size()) < n) {
+        int k = __builtin_ctz(roots.size());
+        roots.resize(n);
+        while ((1 << k) < n) {
+            int e = mpow(ROOT, (MOD-1)>>(k+1), MOD);
+            for (int i = 1<<(k-1); i < (1<<k); ++i) {
+                roots[2 * i] = roots[i];
+                roots[2 * i + 1] = 1LL * roots[i] * e % MOD;
+            }
+            ++k;
+        }
+    }
+    for (int k = 1; k < n; k *= 2)
+        for (int i = 0; i < n; i += 2 * k)
+            for (int j = 0; j < k; ++j) {
+                int u = a[i + j];
+                int v = 1LL * a[i + j + k] * roots[k + j] % MOD;
+                a[i + j] = (u + v)%MOD;
+                a[i + j + k] = (u - v + MOD)%MOD;
+            }
+}
+
+void idft(vector<int> &a) {
+    int n = a.size();
+    reverse(a.begin() + 1, a.end());
+    dft(a);
+    int inv = mpow(n, MOD - 2, MOD);
+    fol(i,0,n) a[i] = 1LL * a[i] * inv % MOD;
+}
+
+vector<int> operator*(vector<int> a, vector<int> b) {
+    int sz = 1, tot = a.size() + b.size() - 1;
+    while (sz < tot) sz <<= 1;
+    a.resize(sz);   b.resize(sz);
+    dft(a); dft(b);
+    fol(i,0,sz) a[i] = 1LL * a[i] * b[i] % MOD;
+    idft(a);
+    a.resize(tot);
+    return a;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>NTT</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

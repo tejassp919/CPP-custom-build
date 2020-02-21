@@ -1,0 +1,36 @@
+<snippet>
+	<content><![CDATA[
+
+//For max type operation change all min to max and '<' to '>'
+//and initialize line vector with {0,-INF}
+
+const int XMAX = 2e5, XMIN = -2e5; //Domain of X
+typedef complex<lli> point;
+vector<point> line(4 * (XMAX-XMIN),{0,INF});
+
+lli dot(point a, point b)   {   return (conj(a) * b).real(); }
+lli f(point a,  int x)      {   return dot(a, {x, 1});       }
+
+void add_line(point nw, int v = 1, int l = XMIN, int r = XMAX) {
+    int m = (l + r) / 2;
+    bool lef = f(nw, l) < f(line[v], l);
+    bool mid = f(nw, m) < f(line[v], m);
+    if(mid) swap(line[v], nw);
+    if(r - l == 1)          return;
+    else if(lef != mid)     add_line(nw, 2 * v, l, m);
+    else                    add_line(nw, 2 * v + 1, m, r);
+}
+
+lli get(int x, int v = 1, int l = XMIN, int r = XMAX) {
+    int m = (l + r) / 2;
+    if(r - l == 1)  return f(line[v], x);
+    else if(x < m)  return min(f(line[v], x), get(x, 2 * v, l, m));
+    else            return min(f(line[v], x), get(x, 2 * v + 1, m, r));
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>lichao tree</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

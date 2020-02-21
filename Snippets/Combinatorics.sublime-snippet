@@ -1,0 +1,25 @@
+<snippet>
+	<content><![CDATA[
+
+#define MAXN 200010
+lli fact[MAXN], invf[MAXN];
+
+void __prec()
+{
+    fact[0]=1;
+    fol(i,1,MAXN) fact[i]=(fact[i-1]*i)%mod;
+    fol(i,0,MAXN) invf[i]=mpow(fact[i],mod-2);
+}
+
+lli nck (lli n, lli k)
+{
+    if(k<0||n<k) return 0;
+    return (((fact[n]*invf[n-k])%mod)*invf[k])%mod;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>combinatorics</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

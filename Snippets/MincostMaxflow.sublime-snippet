@@ -1,0 +1,38 @@
+<snippet>
+	<content><![CDATA[
+
+int max_flow(int s, int t, int n, int req_flow)
+{
+    int flow=0, co=0;
+    vi dist(n+2), par(n+2);
+    while(flow<req_flow)
+    {
+        //Note: if negative edges use D'Esopo algo
+        SSP_ALGO(s,dist,par);
+        if(dist[t]==mod) break;
+		int f=req_flow-flow,cur=t;
+		while(cur!=s)
+		{
+			f=min(f,cap[par[cur]][cur]);
+			cur=par[cur];
+		}
+		cur=t;
+		flow+=f;
+		co+=(dist[t]*f);
+		while(cur!=s)
+		{
+			cap[par[cur]][cur]-=f;
+			cap[cur][par[cur]]+=f;
+			cur=par[cur];
+		}
+    }
+    if(flow<req_flow) return -1;
+    return co;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>mincost maxflow</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

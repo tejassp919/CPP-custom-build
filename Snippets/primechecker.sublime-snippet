@@ -1,0 +1,35 @@
+<snippet>
+	<content><![CDATA[
+
+bool is_prime_once(ulli n, ulli val)
+{
+    ulli m=n-1; m/=2;
+    while(m%2==0)
+    {
+        if(modpow(val,m,n)==(n-1)) return true;
+        m/=2;
+    }
+    m=modpow(val,m,n);
+    if(m==(n-1)||m==1) return true;
+    else return false;
+}
+
+bool is_prime(ulli n, ulli k)
+{
+    if(n<=1) return false;
+    else if(n<4) return true;
+    bool ans=true;
+    fol(i,0,k)
+    {
+        ulli val = uid<ulli>(2,n-1)(rng);
+        ans=ans&is_prime_once(n,val);
+    }
+    return ans;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>primechecker</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>
