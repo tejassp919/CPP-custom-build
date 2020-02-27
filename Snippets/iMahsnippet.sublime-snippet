@@ -50,6 +50,10 @@ int tejas_919(int kkkk)
 
 signed main()
 {
+    #ifdef tejasp
+            freopen("input.txt", "rt", stdin);
+            freopen("output.txt", "wt", stdout);
+    #endif
     if(!localsys) { ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL); }
     cout << fixed << setprecision(10);
     int t=1;
@@ -60,6 +64,7 @@ signed main()
 }
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-	<tabTrigger>mahmain</tabTrigger>
+	<tabTrigger>imahmain</tabTrigger> -->
 	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
 </snippet>

@@ -1,0 +1,12 @@
+<snippet>
+	<content><![CDATA[
+
+// primes - 31 53 167 367 1087 1187 125687 125887 325607 325697
+// primes - 569609 569809 1299709 2750159 15485857 15485863 15485867 998244353
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>primes</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

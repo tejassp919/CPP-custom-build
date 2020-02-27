@@ -1,0 +1,15 @@
+<snippet>
+	<content><![CDATA[
+
+#define uid uniform_int_distribution
+mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
+#define bpop(x) __builtin_popcountll((ulli)x)
+#define blead(x) __builtin_clzll((ulli)x)
+#define btrail(x) __builtin_ctzll((ulli)x)
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>extra</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
