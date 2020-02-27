@@ -1,5 +1,6 @@
 [
 		{ "keys": ["ctrl+shift+backspace"], "command": "cancel_build" },
-		{ "keys": ["ctrl+r"], "command": "build" },
-		{ "keys": ["ctrl+b"], "command": "build", "args": {"variant": "Build Only"} }
+		{ "keys": ["ctrl+i"], "command": "build", "args": {"variant": "Run"} },
+		{ "keys": ["ctrl+b"], "command": "build", "args": {"variant": "Build"} },
+		{ "keys": ["ctrl+r"], "command": "build", "args": {"variant": "Terminal"} },
 ]
