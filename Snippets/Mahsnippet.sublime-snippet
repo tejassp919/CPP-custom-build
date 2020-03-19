@@ -31,9 +31,7 @@ using   vvi     =   vector<vector<int>>;
 using   cd      =   complex<lld>;
 const double PI = acos(-1);
 
-#ifdef tejasp
-#include "library/debugger.cpp"
-#else
+#ifndef tejasp
 #define trace(...) {}
 #define cotra(...) {}
 #define end_routine() {}
