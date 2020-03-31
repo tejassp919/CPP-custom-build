@@ -2,8 +2,10 @@
 	<content><![CDATA[
 
 inline lli mpow(lli a, lli b, lli m=mod) {
+    a = a%mod;          b = b%(mod-1);
+    if(a<0) a+=mod;     if(b<0) b+=mod-1;
+    if(a==0) return 0;
     lli ans = 1;
-    // a=((a%mod)+mod)%mod; b=((b%mod)+mod)%mod;
     while (b) {
         if (b&1) ans=(ans*a)%m;
         a=(a*a)%m; b/=2;
