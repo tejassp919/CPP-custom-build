@@ -1,0 +1,40 @@
+<snippet>
+	<content><![CDATA[
+
+struct frac{
+    lli num, den;
+    lli gcd (lli a, lli b) { return (b==0) ? a : gcd(b,a%b); }
+    void simplify()
+    {
+        if(den<0) { num*=-1; den*=-1; }
+        lli temp = gcd(abs(num),den);
+        if(temp) { num/=temp; den/=temp; }
+    }
+    frac() {}
+    frac(lli n, lli d) : num(n), den(d) { simplify(); }
+    inline bool operator < (const frac &rhs) const {
+        return num * rhs.den < den * rhs.num;
+    }
+    inline bool operator > (const frac &rhs) const {
+        return num * rhs.den > den * rhs.num;
+    }
+    inline bool operator <= (const frac &rhs) const {
+        return num * rhs.den <= den * rhs.num;
+    }
+    inline bool operator >= (const frac &rhs) const {
+        return num * rhs.den >= den * rhs.num;
+    }
+    inline bool operator == (const frac &rhs) const {
+        return num * rhs.den == den * rhs.num;
+    }
+    inline bool operator != (const frac &rhs) const {
+        return num * rhs.den != den * rhs.num;
+    }
+};
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>fraction</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
