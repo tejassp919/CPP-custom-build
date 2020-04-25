@@ -3,4 +3,9 @@
 		{ "keys": ["ctrl+i"], "command": "build", "args": {"variant": "Run"} },
 		{ "keys": ["ctrl+b"], "command": "build", "args": {"variant": "Build"} },
 		{ "keys": ["ctrl+r"], "command": "build", "args": {"variant": "Terminal"} },
+		{ "keys": ["ctrl+."], "command": "next_view" },
+	    	{ "keys": ["ctrl+,"], "command": "prev_view" },
+	   	{ "keys": ["ctrl+u"], "command": "prev_view" },
+		{ "keys": ["ctrl+t"], "command": "toggle_tabs" },
+		{ "keys": ["ctrl+m"], "command": "toggle_menu" },
 ]
