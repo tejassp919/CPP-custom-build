@@ -5,7 +5,11 @@
 		{ "keys": ["ctrl+r"], "command": "build", "args": {"variant": "Terminal"} },
 		{ "keys": ["ctrl+."], "command": "next_view" },
 	    	{ "keys": ["ctrl+,"], "command": "prev_view" },
-	   	{ "keys": ["ctrl+u"], "command": "prev_view" },
+	    	{ "keys": ["ctrl+u"], "command": "prev_view" },
 		{ "keys": ["ctrl+t"], "command": "toggle_tabs" },
 		{ "keys": ["ctrl+m"], "command": "toggle_menu" },
+		{ "keys": ["shift+alt+left"], "command": "move_to", "args": {"to": "bol", "extend": false} },
+		{ "keys": ["shift+alt+right"], "command": "move_to", "args": {"to": "eol", "extend": false} },
+		{ "keys": ["ctrl+p"], "command": "move_to", "args": {"to": "eol", "extend": false} },
 ]
+
