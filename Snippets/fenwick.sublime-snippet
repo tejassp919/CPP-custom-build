@@ -1,0 +1,35 @@
+<snippet>
+	<content><![CDATA[
+
+#define FMAX 200010
+lli B1[FMAX], B2[FMAX];
+
+void add(lli tre[],int x, int val = 1) {
+    for (x+=2; x < FMAX; x += (x&-x))   tre[x] += val;
+}
+
+lli sum(lli tre[], int x) {
+    lli res = 0;
+    for (x+=2; x > 0; x -= (x&-x))  res += tre[x];
+    return res;
+}
+
+void add(lli tre[], int l, int r, lli val) { add(tre,l,val);  add(tre,r+1,-val); }
+lli  sum(lli tre[], int l, int r)          { return sum(tre,r) - sum(tre,l - 1); }
+
+void iadd(int x, lli val, lli off) {
+    add(B1, x, val);
+    add(B2, x, val*(x-1) + off);
+}
+
+lli  isum(int x) { return sum(B1, x)*x -  sum(B2, x); }
+
+void iadd(int l, int r, lli val, lli off) { iadd(l, val, off);  iadd(r+1, -val, -off);  }
+lli  isum(int l, int r)                   { return isum(r) -  isum(l-1); }
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>fenwick</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

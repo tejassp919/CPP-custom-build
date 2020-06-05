@@ -35,7 +35,6 @@ const double PI = acos(-1);
 #define trace(...) {}
 #define cotra(...) {}
 #define end_routine() {}
-#define localsys 0
 #define endl '\n'
 #endif
 
@@ -48,13 +47,12 @@ int tejas_919(int kkkk)
 
 signed main()
 {
-    if(!localsys) { ios_base::sync_with_stdio(false);cin.tie(NULL);cout.tie(NULL); }
+    ios_base::sync_with_stdio(false);   cin.tie(NULL);  cout.tie(NULL);
     cout << fixed << setprecision(10);
     int t=1;
     //cin>>t;
     fol(i,0,t) { tejas_919(i+1); }
     end_routine();
-    if(localsys) system("pause");
 }
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->

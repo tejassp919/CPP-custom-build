@@ -1,63 +1,37 @@
 <snippet>
 	<content><![CDATA[
 
-struct suffix
+vvi gc;
+vector<int> sort_cyclic_shifts(string s) 
 {
-    int index;
-    int rank[2];
-};
+    s += " ";
+    int n = sz(s), cur = 0;
+    vi p(n), c(n), pn(n), cn(n), cnt(max(256, n));
+    fol(i,0,n) c[i]=s[i];
+    iota(all(p),0);
 
-int cmp(suffix &a, suffix &b)
-{
-    return (a.rank[0] == b.rank[0])? (a.rank[1] < b.rank[1] ?1: 0):
-               (a.rank[0] < b.rank[0] ?1: 0);
-}
-
-void buildsuff(string &txt, int n, int suffarray[])
-{
-    suffix suff[n];
-    int ind[n];
-
-    fol(i,0,n)
+    while (cur < n) 
     {
-        suff[i].index = i;
-        suff[i].rank[0] = txt[i] - 'a';
-        suff[i].rank[1] = ((i+1) < n)? (txt[i + 1] - 'a'): -1;
-    }
-    sort(suff, suff+n, cmp);
+        fol(i,0,n) pn[i] = (p[i]-cur+n)%n;
+        fill(all(cnt), 0);
+        fol(i,0,n)  cnt[c[pn[i]]]++;
+        fol(i,1,sz(cnt)) cnt[i] += cnt[i-1];
+        loop(i,n-1,0)   p[--cnt[c[pn[i]]]] = pn[i];
 
-    for (int k = 4; k < 2*n; k = k*2)
-    {
-        int rank = 0;
-        int prev_rank = suff[0].rank[0];
-        suff[0].rank[0] = rank;
-        ind[suff[0].index] = 0;
-
-        fol(i,1,n)
-        {
-            if (suff[i].rank[0] == prev_rank &&
-                    suff[i].rank[1] == suff[i-1].rank[1])
-            {
-                prev_rank = suff[i].rank[0];
-                suff[i].rank[0] = rank;
-            }
-            else
-            {
-                prev_rank = suff[i].rank[0];
-                suff[i].rank[0] = ++rank;
-            }
-            ind[suff[i].index] = i;
+        int classes = -1;
+        fol(i,0,n) {
+            if (i==0 || c[p[i]] != c[p[i-1]] || c[(p[i]+cur)%n] != c[(p[i-1]+cur)%n])   
+                ++classes;
+            cn[p[i]] = classes;
         }
 
-        fol(i,0,n)
-        {
-            int nind = suff[i].index + k/2;
-            suff[i].rank[1] = (nind < n) ? suff[ind[nind]].rank[0] : -1;
-        }
-        sort(suff, suff+n, cmp);
+        c.swap(cn);
+        gc.pb(c);
+        cur = max(1,cur*2);
     }
-
-    fol(i,0,n)  suffixArr[i] = suff[i].index;
+    forr(x,gc) x.ppb;
+    p.erase(p.begin());
+    return p;
 }
 
 ]]></content>

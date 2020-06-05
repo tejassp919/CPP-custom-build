@@ -1,0 +1,21 @@
+<snippet>
+	<content><![CDATA[
+
+int lcp(int i, int j) {
+    if(i>=sz(gc[0]) || j>=sz(gc[0])) return 0;
+    if(i==j) return sz(gc[0])-i;
+    int ans = 0;
+    loop(k,sz(gc)-1,0) if (gc[k][i] == gc[k][j]) {
+        ans += 1 << k;
+        i += 1 << k;
+        j += 1 << k;
+    }
+    return ans;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>LCP</tabTrigger> 
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

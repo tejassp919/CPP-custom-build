@@ -1,0 +1,23 @@
+<snippet>
+	<content><![CDATA[
+
+struct edge
+{
+    int w;
+    bool fl;
+    vi n;
+    edge (int a, bool b, int u, int v) {
+        w=a; fl=b;
+        n.pb(u); n.pb(v);
+    }
+    bool operator<(edge other) const {
+        return w < other.w;
+    }
+};
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>complexedge</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

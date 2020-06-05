@@ -1,10 +1,10 @@
 <snippet>
 	<content><![CDATA[
 
-int max_flow(int s, int t, int n, int req_flow)
+int max_flow(int s, int t, int req_flow)
 {
     int flow=0, co=0;
-    vi dist(n+2), par(n+2);
+    vi dist(sz(adj)), par(sz(adj));
     while(flow<req_flow)
     {
         //Note: if negative edges use D'Esopo algo
