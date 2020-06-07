@@ -1,16 +1,16 @@
 <snippet>
 	<content><![CDATA[
 
-int max_flow(int s, int t, int req_flow)
+lli max_flow(int s, int t, lli req_flow)
 {
-    int flow=0, co=0;
-    vi dist(sz(adj)), par(sz(adj));
+    lli flow=0, co=0;
+    vl dist(sz(adj)), par(sz(adj));
     while(flow<req_flow)
     {
         //Note: if negative edges use D'Esopo algo
         SSP_ALGO(s,dist,par);
-        if(dist[t]==mod) break;
-		int f=req_flow-flow,cur=t;
+        if(dist[t]==INF) break;
+		lli f=req_flow-flow, cur=t;
 		while(cur!=s)
 		{
 			f=min(f,cap[par[cur]][cur]);

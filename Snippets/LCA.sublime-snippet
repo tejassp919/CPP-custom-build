@@ -1,41 +1,38 @@
 <snippet>
 	<content><![CDATA[
 
-#define MAXN 100005
+#define LMAX 100005
 const int lim=20;
-int up[MAXN][lim];
-int timer=0;
-int tin[MAXN], tout[MAXN];
-lli depth[MAXN];
+int up[LMAX][lim];
+int timer;
+int tin[LMAX], tout[LMAX];
+lli depth[LMAX];
  
-void lcadfs(int v, int p, int dep, vvi &adj)
+void lcadfs(int v, int p, lli dep, vvi &adj)
 {
     tin[v] = ++timer;
-    depth[v]=dep;
-    up[v][0] = p;
-    for (int i = 1; i < lim; ++i)
-        up[v][i] = up[up[v][i-1]][i-1];
-    forr (u, adj[v]) {
-        if (u != p)
-            lcadfs(u, v, dep+1, adj);
-    }
+    depth[v]=dep;   up[v][0] = p;
+    fol(i,1,lim)    up[v][i] = up[up[v][i-1]][i-1];
+
+    forr (to, adj[v]) if (to != p)
+            lcadfs(to, v, dep+1, adj);
+
     tout[v] = ++timer;
 }
  
-bool is_ancestor(int u, int v)	{
-    return tin[u] <= tin[v] && tout[u] >= tout[v];
+bool is_ancestor(int par, int v)	{
+    return tin[par] <= tin[v] && tout[par] >= tout[v];
 }
  
 int lca(int u, int v)
 {
-    if (is_ancestor(u, v))
-        return u;
-    if (is_ancestor(v, u))
-        return v;
-    for (int i = lim-1; i >= 0; --i) {
+    if (is_ancestor(u, v))  return u;
+    if (is_ancestor(v, u))  return v;
+
+    loop(i,lim-1,0)  
         if (!is_ancestor(up[u][i], v))
             u = up[u][i];
-    }
+    
     return up[u][0];
 }
  

@@ -9,12 +9,14 @@ struct DSU
         fol(i,0,N) p[i] = i;
     }
     int findset(int i) { return (p[i]==i) ? i : (p[i]=findset(p[i])); }
-    void unite(int x, int y) {
+    bool unite(int x, int y) {
         x=findset(x); y=findset(y);
         if (x!=y) {
             if(siz[x]<siz[y]) swap(x,y);
             p[y]=x; siz[x]+=siz[y];
+            return true;
         }
+        else return false;
     }
 };
 

@@ -1,24 +1,20 @@
 <snippet>
 	<content><![CDATA[
 
-void dijkstra(int s, vi &d, vi &p)
+void dijkstra(int s, vl &d, vl &p, vvi &adj)
 {
-    d.assign(sz(d),mod);
-    p.assign(sz(p),-1);
+    d = vl(sz(adj),INF);
+    p = vl(sz(adj),-1);
     d[s] = 0;
-    using PII = pair<int, int>;
-    priority_queue<PII, vector<PII>, greater<PII>> q;
+    priority_queue<pll, vll, greater<pll>> q;
     q.push({0, s});
     while (!q.empty()) {
-        int v = q.top().second;
-        int d_v = q.top().first;
-        q.pop();
-        if (d_v != d[v])    continue;
-
-        for (auto to : adj[v]) {
-            if (cap[v][to]&&d[v] + cost[v][to] < d[to]) {
-                d[to] = d[v] + cost[v][to];
-                p[to] = v;
+        pll cur = q.top();    q.pop();
+        if (cur.ff != d[cur.ss])    continue;
+        forr (to, adj[cur.ss]) {
+            if (cap[cur.ss][to] && d[cur.ss] + cost[cur.ss][to] < d[to]) {
+                d[to] = d[cur.ss] + cost[cur.ss][to];
+                p[to] = cur.ss;
                 q.push({d[to], to});
             }
         }

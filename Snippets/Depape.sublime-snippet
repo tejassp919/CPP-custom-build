@@ -1,22 +1,22 @@
 <snippet>
 	<content><![CDATA[
 
-void depape(int s, vi &d, vi &p)
+void depape(int s, vl &d, vl &p)
 {
     vi m(sz(d),2);
-    d.assign(sz(d),mod);
-    p.assign(sz(p),-1);
+    d = vl(sz(adj),INF);
+    p = vl(sz(adj),-1);
     d[s]=0;
     deque<int> qu;
     qu.pb(s);
     while(!qu.empty())
     {
         int x = qu.front();
-        qu.pop_front();
+        qu.ppf();
         m[x] = 0;
         forr(y,adj[x])
-        {
-            if(cap[x][y]>0&&(d[y]>(d[x]+cost[x][y])))
+        { 
+            if(cap[x][y]>0 && d[x] + cost[x][y] < d[y])
 			{
 				d[y]=d[x]+cost[x][y];
 				p[y]=x;
