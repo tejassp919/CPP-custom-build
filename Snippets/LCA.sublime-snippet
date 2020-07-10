@@ -1,5 +1,5 @@
 <snippet>
-	<content><![CDATA[
+    <content><![CDATA[
 
 #define LMAX 100005
 const int lim=20;
@@ -20,7 +20,7 @@ void lcadfs(int v, int p, lli dep, vvi &adj)
     tout[v] = ++timer;
 }
  
-bool is_ancestor(int par, int v)	{
+bool is_ancestor(int par, int v)    {
     return tin[par] <= tin[v] && tout[par] >= tout[v];
 }
  
@@ -43,8 +43,8 @@ lli dist(int u, int v)
 }
 
 ]]></content>
-	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-	 <tabTrigger>LCA</tabTrigger>
-	<!-- Optional: Set a scope to limit where the snippet will trigger -->
-	<scope>source.c++</scope>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+     <tabTrigger>LCA</tabTrigger>
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <scope>source.c++</scope>
 </snippet>

@@ -1,6 +1,5 @@
 <snippet>
 	<content><![CDATA[
-
 int lcp(int i, int j) {
     if(i>=sz(gc[0]) || j>=sz(gc[0])) return 0;
     if(i==j) return sz(gc[0])-i;
@@ -12,7 +11,6 @@ int lcp(int i, int j) {
     }
     return ans;
 }
-
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
 	<tabTrigger>LCP</tabTrigger> 

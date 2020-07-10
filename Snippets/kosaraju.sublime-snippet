@@ -1,0 +1,33 @@
+<snippet>
+    <content><![CDATA[
+
+void dfs (int v, vvi &adj, vi& vect, bool vis[]) {
+    vis[v] = 1;
+    forr(x,adj[v]) if(!vis[x]) dfs(x,adj,vect,vis);
+    vect.pb(v);
+}
+
+void storeSCC(int st, int en, vvi &adj, vvi &SCC)
+{
+    vvi radj(sz(adj));
+    vi ord;
+    bool vis[sz(adj)]={};
+    fol(i,st,en) { 
+        if(!vis[i]) dfs(i,adj,ord,vis);
+        forr(x,adj[i]) radj[x].pb(i);
+    }
+    reverse(all(ord));
+    memset(vis,0,sizeof(vis));
+    forr(x,ord) if(!vis[x]) {
+        vi com;
+        dfs(x,radj,com,vis);
+        SCC.pb(com);
+    }
+}
+
+]]></content>
+    <!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+    <tabTrigger>kosaraju</tabTrigger> -->
+    <!-- Optional: Set a scope to limit where the snippet will trigger -->
+    <!-- <scope>source.python</scope> -->
+</snippet>

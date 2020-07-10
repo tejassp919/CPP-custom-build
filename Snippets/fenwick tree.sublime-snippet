@@ -1,0 +1,25 @@
+<snippet>
+	<content><![CDATA[
+
+#define MAF 500010
+lli tre[MAF];
+
+lli get(int x) {
+    lli res = 0;
+    for (x+=1; x > 0; x -= (x&(-x))) res += tre[x];
+    return res;
+}
+
+void add(int x, lli val) {
+    for (x+=1; x < MAF; x += (x&(-x))) tre[x]+=val;
+}
+
+void add(int l, int r, lli val) { add(l,val); add(r+1,-val); }
+lli get(int l, int r)           { return (l>r) ? 0 : get(r)-get(l-1); }
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>fenwick</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>

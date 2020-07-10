@@ -1,0 +1,47 @@
+<snippet>
+	<content><![CDATA[
+        
+#define MAF 200010
+lli tre1[MAF], tre2[MAF];
+
+void add(lli tre[], int x, lli val)	{
+    for (x+=1; x < MAF; x += (x&(-x))) tre[x]+=val;
+}
+
+void add(lli tre[], int l, int r, lli val)	{ 
+    add(tre, l,val); add(tre, r+1,-val); 
+}
+
+lli get(lli tre[], int x)	{
+    lli res = 0;
+    for (x+=1; x > 0; x -= (x&(-x))) res += tre[x];
+    return res;
+}
+
+lli  get(lli tre[], int l, int r)	{ 
+    return (l>r) ? 0 : get(tre,r)-get(tre,l-1); 
+}
+
+void upd(lli x, lli val)
+{
+    add(tre1, x, val);
+    add(tre2, x, val*(x-1));
+}
+
+void upd(lli l, lli r, lli val, lli off=0)
+{
+    add(tre1, l, val);
+    add(tre1, r+1, -val);
+    add(tre2, l, val*(l-1) - off);
+    add(tre2, r+1, -val*r);
+}
+
+lli query (lli x)           {   return x*get(tre1, x) - get(tre2, x);   }
+lli query (int l, int r)    {   return query(r) - query(l-1);           }
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>fenwick complex</tabTrigger> -->
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<scope>source.c++</scope>
+</snippet>
