@@ -1,17 +1,18 @@
 <snippet>
 	<content><![CDATA[
+    
+lli gcd (lli a, lli b) { return (b==0) ? a : gcd(b,a%b); }
 
 struct frac{
     lli num, den;
-    lli gcd (lli a, lli b) { return (b==0) ? a : gcd(b,a%b); }
-    void simplify()
+    inline void simplify()
     {
         if(den<0) { num*=-1; den*=-1; }
         lli temp = gcd(abs(num),den);
         if(temp) { num/=temp; den/=temp; }
     }
-    frac() {}
-    frac(lli n, lli d) : num(n), den(d) { simplify(); }
+    frac() {  num=0;  den=1;  }
+    frac(lli n, lli d, bool fl=1) : num(n), den(d) { if(fl) simplify(); }
     inline bool operator < (const frac &rhs) const {
         return num * rhs.den < den * rhs.num;
     }
@@ -30,6 +31,26 @@ struct frac{
     inline bool operator != (const frac &rhs) const {
         return num * rhs.den != den * rhs.num;
     }
+    inline frac operator + (const frac &rhs) const {
+        lli temp = gcd(den, rhs.den);
+        return frac(num * (rhs.den/temp) + rhs.num * (den/temp), den * (rhs.den/temp));
+    }
+    inline frac operator - (const frac &rhs) const {
+        lli temp = gcd(den, rhs.den);
+        return frac(num * (rhs.den/temp) - rhs.num * (den/temp), den * (rhs.den/temp));
+    }
+    inline frac operator * (const frac &rhs) const {
+        return frac(num * rhs.num, den * rhs.den);
+    }
+    inline frac operator / (const frac &rhs) const {
+        return frac(num * rhs.den, den * rhs.num);
+    }
+    inline frac operator - () const { return frac(-num,den,0); }
+    inline frac operator + () const { return *this; }
+    inline void operator -= (const frac &rhs) { *this = *this - rhs ; }
+    inline void operator += (const frac &rhs) { *this = *this + rhs ; }
+    inline void operator /= (const frac &rhs) { *this = *this / rhs ; }
+    inline void operator *= (const frac &rhs) { *this = *this * rhs ; }
 };
 
 ]]></content>

@@ -41,7 +41,7 @@ const double PI = acos(-1);
 #define endl '\n'
 #endif
 
-int tejas_919(int kkkk)
+int white_horseman()
 {
     lli n, m, k, q, u, v, temp=0, ans=0;
     
@@ -58,13 +58,15 @@ signed main()
     cout << fixed << setprecision(10);
     int t=1;
     //cin>>t;
-    fol(i,0,t) { tejas_919(i+1); }
-    end_routine();
-    //if(localsys) system("pause");
+    fol(i,0,t) { 
+        //cout<<"Case #"<<i+1<<": ";
+        white_horseman(); 
+    }
+    //end_routine(); if(localsys) system("pause");
 }
 ]]></content>
 	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
-	<tabTrigger>imahmain</tabTrigger> -->
+	<tabTrigger>wmahmain</tabTrigger> -->
 	<!-- Optional: Set a scope to limit where the snippet will trigger -->
 	<scope>source.c++</scope>
 </snippet>

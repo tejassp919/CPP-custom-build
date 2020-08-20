@@ -1,0 +1,22 @@
+<snippet>
+	<content><![CDATA[
+
+using ftype = lli;
+using pnt = complex<ftype>;
+ftype dot(pnt a, pnt b)     {  return (conj(a) * b).real(); }
+ftype cross(pnt a, pnt b)   {  return (conj(a) * b).imag(); }
+
+inline bool operator < (const pnt &l, const pnt &r) {
+    return  (l.real()==r.real()) ? (l.imag()<r.imag()) : (l.real()<r.real());
+}
+
+inline bool operator > (const pnt &l, const pnt &r) {
+    return  (l.real()==r.real()) ? (l.imag()>r.imag()) : (l.real()>r.real());
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>pointfunctions</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

@@ -17,7 +17,7 @@ void lcadfs(int v, int p, lli dep, vvi &adj)
     forr (to, adj[v]) if (to != p)
             lcadfs(to, v, dep+1, adj);
 
-    tout[v] = ++timer;
+    tout[v] = timer;
 }
  
 bool is_ancestor(int par, int v)    {

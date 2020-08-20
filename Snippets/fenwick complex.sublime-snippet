@@ -1,11 +1,11 @@
 <snippet>
 	<content><![CDATA[
         
-#define MAF 200010
-lli tre1[MAF], tre2[MAF];
+#define FMAX 200010
+lli tre1[FMAX], tre2[FMAX];
 
 void add(lli tre[], int x, lli val)	{
-    for (x+=1; x < MAF; x += (x&(-x))) tre[x]+=val;
+    for (x+=3; x < FMAX; x += (x&(-x))) tre[x]+=val;
 }
 
 void add(lli tre[], int l, int r, lli val)	{ 
@@ -14,7 +14,7 @@ void add(lli tre[], int l, int r, lli val)	{
 
 lli get(lli tre[], int x)	{
     lli res = 0;
-    for (x+=1; x > 0; x -= (x&(-x))) res += tre[x];
+    for (x+=3; x > 0; x -= (x&(-x))) res += tre[x];
     return res;
 }
 
@@ -28,11 +28,11 @@ void upd(lli x, lli val)
     add(tre2, x, val*(x-1));
 }
 
-void upd(lli l, lli r, lli val, lli off=0)
+void upd(lli l, lli r, lli val)
 {
     add(tre1, l, val);
     add(tre1, r+1, -val);
-    add(tre2, l, val*(l-1) - off);
+    add(tre2, l, val*(l-1));
     add(tre2, r+1, -val*r);
 }
 

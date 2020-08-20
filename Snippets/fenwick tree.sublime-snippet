@@ -1,8 +1,8 @@
 <snippet>
 	<content><![CDATA[
 
-#define MAF 500010
-lli tre[MAF];
+#define FMAX 500010
+lli tre[FMAX];
 
 lli get(int x) {
     lli res = 0;
@@ -11,7 +11,7 @@ lli get(int x) {
 }
 
 void add(int x, lli val) {
-    for (x+=1; x < MAF; x += (x&(-x))) tre[x]+=val;
+    for (x+=1; x < FMAX; x += (x&(-x))) tre[x]+=val;
 }
 
 void add(int l, int r, lli val) { add(l,val); add(r+1,-val); }

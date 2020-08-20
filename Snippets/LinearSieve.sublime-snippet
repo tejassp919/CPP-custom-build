@@ -1,0 +1,28 @@
+<snippet>
+	<content><![CDATA[
+
+#define SMAX 100010
+vi prime;
+int lp[SMAX];
+
+void sieve() {
+    lp[1]=1; //cross-check again
+    fol(i,2,SMAX) {
+        if (lp[i]==0) { 
+            prime.pb(i); 
+            lp[i]=i; 
+        }
+        forr(x,prime) {
+            if (x*i >= SMAX) break;
+            lp[x*i] = x;
+            if (i%x == 0) break;
+        }
+    }
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>linearsieve</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

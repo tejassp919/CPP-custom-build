@@ -3,7 +3,8 @@
 
 inline lli mpow(lli a, lli b, lli m=mod) {
     lli ans = 1;
-    // a=((a%mod)+mod)%mod; b=((b%mod)+mod)%mod;
+    // a%=m;   if(a<0) a+=m;
+    // b%=m-1; if(b<0) b+=m-1;
     while (b) {
         if (b&1) ans=(ans*a)%m;
         a=(a*a)%m; b/=2;

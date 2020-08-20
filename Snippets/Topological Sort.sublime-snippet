@@ -1,0 +1,37 @@
+<snippet>
+	<content><![CDATA[
+
+#define TMAX 200010
+int pos[TMAX];
+vi order; //Stores the Topological Order
+ 
+bool toposort(int n, vvi &adj) //Returns 1 if there exists a toposort, 0 if there is a cycle
+{   
+    order.clear();
+    deque<int> q;
+    vi indeg(sz(adj), 0);
+    fol(i,1,n+1) forr(x,adj[i]) indeg[x]++;
+    fol(i,1,n+1){
+        if(!indeg[i])   q.pb(i);
+    }
+    int idx = 0;
+    while(!q.empty())
+    {
+        int v = q.front();  q.ppf;
+        order.pb(v);
+        idx++;
+        pos[v] = idx;
+        forr(x,adj[v]) {
+            indeg[x]--;
+            if(!indeg[x])   q.pb(x);
+        }
+    }
+    return (order.size() == n);
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>topological sorting</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

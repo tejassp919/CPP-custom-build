@@ -1,0 +1,43 @@
+<snippet>
+	<content><![CDATA[
+
+vector<vll> adj, tadj;
+vi fin;
+vvi edges;
+bool used[100010];
+
+void add_edge(int from, int to) {
+    adj[from].pb({sz(edges),1});
+    adj[to].pb({sz(edges),0});
+    vi cur({from,to});
+    edges.pb(cur);
+}
+ 
+void euler_dfs(int v) {
+    while(!tadj[v].empty()) {
+        pll nex = tadj[v].back();   tadj[v].ppb;
+        if(used[nex.ff])  continue;
+        used[nex.ff]=1;
+        euler_dfs(edges[nex.ff][nex.ss]);
+    }
+    fin.pb(v);
+}
+
+void euler(int s) {
+    tadj=adj;
+    euler_dfs(s);
+}
+
+void init(int n) {
+    adj = vector<vll>(n+2);
+    fin.clear();
+    edges.clear();
+    memset(used,0,n+2);
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>EULER</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

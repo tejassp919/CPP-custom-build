@@ -1,0 +1,29 @@
+<snippet>
+	<content><![CDATA[
+
+inline ftype cross(pnt o, pnt a, pnt b) { return cross(a-o, b-o); }
+
+//make sure to care of repetitive points using map
+vector<pnt> convex_hull(vector<pnt> pts) {
+    vector<pnt> hull, up; 
+    sort(all(pts));
+    forr(cur, pts) {
+        while (sz(hull) >= 2 && cross(hull[sz(hull)-2], hull.back(), cur) < 0) 
+            hull.ppb;
+        hull.pb(cur);
+    }
+    forr(cur, pts) {
+        while (sz(up) >= 2 && cross(up[sz(up)-2], up.back(), cur) > 0)
+            up.ppb;
+        up.pb(cur);
+    }
+    loop(i,sz(up)-2,1) hull.pb(up[i]);
+    return hull;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>convex hull</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>

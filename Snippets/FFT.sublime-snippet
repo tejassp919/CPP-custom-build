@@ -2,22 +2,25 @@
 	<content><![CDATA[
 
 void fft(vector<cd> &a) {
-    int n = a.size();
-    if (n == 1) return;
-    vector<cd> a0(n / 2), a1(n / 2);
-    for (int i = 0; i < n/2; i++)
-    {
-        a0[i] = a[2*i];
-        a1[i] = a[2*i+1];
-    }
-    fft(a0);    fft(a1);
-    long double ang = 2 * PI / n;
-    cd w(1), wn(cos(ang), sin(ang));
-    for (int i = 0; i < n/2 ; i++)
-    {
-        a[i] = a0[i] + w * a1[i];
-        a[i + n/2] = a0[i] - w * a1[i];
-        w *= wn;
+    int n=sz(a);
+    double theta = 2.0 * PI / n;
+    cd t,w;
+    for (int m = n; m > 1; m >>= 1) {
+        int len = m / 2;
+        fol(d,0,len) {
+            w = polar(1.0, theta * d);
+            for (int i = d; i < n; i += m) {
+                int j = i + len; 
+                t = a[i] - a[j];
+                a[i] = a[i] + a[j]; 
+                a[j] = w * t;
+            }
+        } 
+        theta *= 2;
+    } 
+    for(int j=1, i=0; j<=n-1; ++j) {
+        for (int k = n / 2; k > (i ^= k); k >>= 1);
+        if (j < i) swap(a[i], a[j]);
     }
 }
 

@@ -1,0 +1,52 @@
+<snippet>
+	<content><![CDATA[
+
+#define DMAX 100010
+vvi adj;
+int tin[DMAX], tout[DMAX], siz[DMAX], ver[DMAX], timer;
+int cnt[DMAX], col[DMAX];
+
+void prepdfs(int v, int p)
+{
+    tin[v] = ++timer;
+    siz[v] = 1;   
+    ver[timer] = v;
+
+    forr (to, adj[v]) if (to != p) {
+        prepdfs(to, v);
+        siz[v] += siz[to];
+    }
+
+    tout[v] = timer;
+}
+
+void dsuDfs(int v, int p, bool keep){
+    int mx = -1, big = -1;
+
+    forr(x,adj[v]) 
+       if(x != p && siz[x] > mx)
+          mx = siz[x], big = x;
+
+    forr(x,adj[v]) 
+        if(x != p && x != big)
+            dsuDfs(x, v, 0);  
+
+    if(big != -1)   dsuDfs(big, v, 1);  
+
+    forr(x,adj[v]) if(x != p && x != big) 
+        fol(i,tin[x],tout[x]+1)
+            cnt[ col[ ver[i] ] ]++;
+
+    cnt[ col[v] ]++;
+
+    if (!keep) 
+        fol(i,tin[v],tout[v]+1)
+            cnt[ col[ ver[i] ] ]--;
+}
+
+]]></content>
+	<!-- Optional: Set a tabTrigger to define how to trigger the snippet -->
+	<tabTrigger>DSUDFS</tabTrigger>
+	<!-- Optional: Set a scope to limit where the snippet will trigger -->
+	<!-- <scope>source.python</scope> -->
+</snippet>
