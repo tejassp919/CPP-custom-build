@@ -1,5 +1,6 @@
 To have the the debugging functions (trace() and cotra()) you need to replace the default available stdc++.h file with the one provided.
-After that got the directory where you put your stdc++.h file and run following command
+After that go to your directory where you put your stdc++.h file and run following command
 ~~~
-asdasd
+g++ -std=c++17 stdc++.h
 ~~~
+This will create a "stdc++.h.gch" file....now rename the "stdc++.h" file to "istdc++.h" (now your code will use precompiled version od stdc++.h)
